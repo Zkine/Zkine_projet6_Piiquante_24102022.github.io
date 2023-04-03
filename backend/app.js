@@ -1,14 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const mongoose = require('mongoose');
-const path = require('path');
+const mongoose = require("mongoose");
+const path = require("path");
 
 app.use(express.json());
 
-
-mongoose.set("strictQuery", false);
 const MY_PORT = process.env.PORT;
 const MY_APP_SECRET = process.env.APP_SECRET;
 
@@ -19,7 +17,7 @@ app.get("/", (req, res) => {
 app.listen(MY_PORT, () => console.log(`Server running on port ${MY_PORT}`));
 mongoose
   .connect(
-    "mongodb+srv://Zkine:VE0yYpbhpkFOcBay@cluster0.uvn64cr.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://Zkine:W3gV3737DdwtTIXm@cluster0.uvn64cr.mongodb.net/?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -38,15 +36,11 @@ app.use((req, res, next) => {
   next();
 });
 
+const userRoutes = require("./routes/users");
+const stuffRoutes = require("./routes/sauces");
 
-
-const userRoutes = require('./routes/users');
-const stuffRoutes = require('./routes/sauces');
-
-
-
-app.use('/api/sauces', stuffRoutes);
-app.use('/api/auth', userRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use("/api/sauces", stuffRoutes);
+app.use("/api/auth", userRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;

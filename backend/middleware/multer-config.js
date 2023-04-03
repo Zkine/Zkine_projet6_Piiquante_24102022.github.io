@@ -18,11 +18,15 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, callback) => {
-  if((file.mimetype).includes('jpg') || (file.mimetype).includes('jpeg') || (file.mimetype).includes('png')) {
+  if (
+    file.mimetype.includes("jpg") ||
+    file.mimetype.includes("jpeg") ||
+    file.mimetype.includes("png")
+  ) {
     callback(null, true);
   } else {
     callback(null, false);
   }
 };
 
-module.exports = multer({ storage, fileFilter,}).single("image");
+module.exports = multer({ storage, fileFilter }).single("image");
